@@ -5,13 +5,13 @@ const userRouter = express.Router();
 
 userRouter.post("/register-user", registerUserController);
 userRouter.post("/login-user", loginUserController)
-userRouter.get("/user-profile/:id", isAuthenticatedUser, userProfileController)
+userRouter.get("/user-profile", isAuthenticatedUser, userProfileController)
 userRouter.put("/update-profile/:id", isAuthenticatedUser, updateProfileController)
 userRouter.delete("/delete-profile/:id", isAuthenticatedUser, deleteProfileController)
 userRouter.get("/get-all-users", isAdmin("admin"), getAllUsersController);
 userRouter.post("/logout-user", isAuthenticatedUser, logoutUser)
-userRouter.post("/forgot-password", isAuthenticatedUser, resetPasswordRequestController)
-userRouter.post("/reset-password/:token", isAuthenticatedUser, resetPasswordController)
+userRouter.post("/forgot-password", resetPasswordRequestController)
+userRouter.post("/reset-password/:token", resetPasswordController)
 userRouter.post("/update-password", isAuthenticatedUser, updatePasswordController)
 
 export default userRouter
