@@ -192,7 +192,7 @@ export const resetPasswordRequestController = async (req, res) => {
     console.log(resetToken);
     user.save({ validatorsBeforeSave: false });
 
-    const resetPasswordUrl = `http://locahost/api/v1/${resetToken}`;
+    const resetPasswordUrl = `http://localhost:5173/reset-password/${resetToken}`;
     const message = `If you want to reset you password click on the above link ${resetPasswordUrl}`;
 
     console.log(resetPasswordUrl);
