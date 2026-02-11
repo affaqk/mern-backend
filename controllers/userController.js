@@ -86,15 +86,15 @@ export const userProfileController = async (req, res) => {
 
 export const updateProfileController = async (req, res) => {
   try {
-    let user = await User.findById(req.params.id);
-    if (!user) {
-      return res.status(400).json({
-        success: false,
-        message: "User not found",
-      });
-    }
+    // let user = await User.findById(req.params.id);
+    // if (!user) {
+    //   return res.status(400).json({
+    //     success: false,
+    //     message: "User not found",
+    //   });
+    // }
 
-    user = await User.findByIdAndUpdate(req.params.id, req.body, {
+    let user = await User.findByIdAndUpdate(req.user._id, req.body, {
       new: true,
       runValidators: true,
     });
