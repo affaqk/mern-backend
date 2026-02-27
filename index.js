@@ -15,7 +15,6 @@ app.use(cors({
     credentials: true
 }));
 
-
 Connection()
 
 app.use("/api/v1/products", productRouter)
@@ -25,7 +24,6 @@ const port = process.env.PORT;
 app.listen(port, ()=>{
     console.log(`listening on port ${port}`);
 })
-
 
 // http://localhost:3000/api/v1/products/create-product
 // http://localhost:3000/api/v1/users/register-user
