@@ -71,10 +71,34 @@ export const loginUserController = async (req, res) => {
 
 export const userProfileController = async (req, res) => {
   try {
+    return res.status(200).json({
+      success: true,
+      user: req.user,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      error,
+    });
+  }
+};
+
+export const getUserByIdController = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const user = await User.findById(id).select("-password");
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
 
     return res.status(200).json({
       success: true,
-      user : req.user
+      user,
     });
   } catch (error) {
     return res.status(500).json({
@@ -113,18 +137,12 @@ export const updateProfileController = async (req, res) => {
 
 export const deleteProfileController = async (req, res) => {
   try {
-    let user = await User.findById(req.params.id);
-    if (!user) {
-      return res.status(400).json({
-        success: false,
-        message: "User not found",
-      });
-    }
 
-    user = await User.findByIdAndDelete(req.params.id);
+    let user = await User.findByIdAndDelete(req.user._id);
 
     return res.status(200).json({
       success: true,
+      message : "User deleted successfully",
       user,
     });
   } catch (error) {
