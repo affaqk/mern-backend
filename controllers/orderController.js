@@ -92,10 +92,13 @@ export const getAllOrders = async (req, res) => {
             total = total + order.totalPrice
         })
 
+        let totalCount = orders.length
+
         return res.status(200).json({
             success: true,
             orders,
-            total
+            total,
+            totalCount
         })
     } catch (error) {
         return res.status(500).json({

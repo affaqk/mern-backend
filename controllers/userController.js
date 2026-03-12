@@ -137,13 +137,34 @@ export const updateProfileController = async (req, res) => {
 
 export const deleteProfileController = async (req, res) => {
   try {
-
     let user = await User.findByIdAndDelete(req.user._id);
 
     return res.status(200).json({
       success: true,
-      message : "User deleted successfully",
+      message: "User deleted successfully",
       user,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      error,
+    });
+  }
+};
+
+export const deleteProfileByIdController = async (req, res) => {
+  try {
+    let user = await User.findByIdAndDelete(req.params.id);
+    if (!user) {
+      return res.status(400).json({
+        success: false,
+        message: "user not found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "User deleted successfully",
     });
   } catch (error) {
     return res.status(500).json({
@@ -162,9 +183,12 @@ export const getAllUsersController = async (req, res) => {
         message: "Users not found",
       });
     }
+
+    let totalCount = users.length
     return res.status(200).json({
       success: true,
       users,
+      totalCount
     });
   } catch (error) {
     return res.status(500).json({
